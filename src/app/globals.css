@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+ 
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+ 
+/* Visible keyboard focus ring, kept consistent across interactive elements */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #4b5940;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+ 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+ 
+  body {
+    @apply antialiased;
+    background-color: #ffffff;
+    color: #1f1f1f;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+ 
+  /* Consistent, visible keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid #C6A667;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: #D8BE87;
+    color: #1F1F1F;
+  }
+}
+ 
+@layer utilities {
+  .bg-blueprint-grid {
+    background-image:
+      linear-gradient(rgba(241, 236, 227, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(241, 236, 227, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+}
+ 
+/* Respect reduced-motion preferences globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
