@@ -49,7 +49,6 @@ export default function Hero() {
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  // Ambient parallax for the light-beam layer
   const beamX = useMotionValue(0);
   const beamY = useMotionValue(0);
   const beamSpringX = useSpring(beamX, { stiffness: 40, damping: 20 });
@@ -57,7 +56,6 @@ export default function Hero() {
   const beamTranslateX = useTransform(beamSpringX, [-1, 1], [-14, 14]);
   const beamTranslateY = useTransform(beamSpringY, [-1, 1], [-10, 10]);
 
-  // Magnetic CTA
   const ctaX = useMotionValue(0);
   const ctaY = useMotionValue(0);
   const ctaSpringX = useSpring(ctaX, { stiffness: 300, damping: 20 });
@@ -90,13 +88,21 @@ export default function Hero() {
     ctaY.set(0);
   }
 
+  function handleExploreWork() { 
+    const target = document.getElementById("work"); 
+    if (!target) { 
+      console.warn( 'Explore Our Work: Element with id="work" was not found.' );
+      return; 
+    } 
+    target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start", }); 
+  }
+
   return (
     <section
       ref={heroRef}
       onMouseMove={handleHeroMouseMove}
       className="relative min-h-screen w-full overflow-hidden bg-neutral-900"
     >
-      {/* Background */}
       <div className="absolute inset-0">
         <video
           autoPlay
@@ -110,13 +116,10 @@ export default function Hero() {
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
 
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/40" />
 
-        {/* Text readability — bottom-weighted now, since copy lives in the plaque */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/50" />
 
-        {/* Light beam */}
         <motion.div
           aria-hidden="true"
           className="absolute -inset-10"
@@ -128,14 +131,11 @@ export default function Hero() {
           }}
         />
 
-        {/* Vignette */}
         <div className="absolute inset-0 shadow-[inset_0_0_160px_40px_rgba(0,0,0,.6)]" />
       </div>
 
-      {/* Navbar */}
       <Navbar hamburgerRef={hamburgerRef} />
 
-      {/* Inset gallery frame — the room's "wall" reads as a mounted frame around the footage */}
       <motion.div
         variants={prefersReducedMotion ? undefined : fade}
         initial={prefersReducedMotion ? undefined : "hidden"}
@@ -143,7 +143,6 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-4 z-10 border border-white/15 sm:inset-8 lg:inset-10"
       >
-        {/* Brass corner brackets */}
         {[
           "-top-px -left-px border-t border-l",
           "-top-px -right-px border-t border-r",
@@ -158,7 +157,6 @@ export default function Hero() {
         ))}
       </motion.div>
 
-      {/* Rotated eyebrow rail — right edge, inside the frame */}
       <motion.div
         variants={prefersReducedMotion ? undefined : rise}
         initial={prefersReducedMotion ? undefined : "hidden"}
@@ -173,7 +171,6 @@ export default function Hero() {
         </span>
       </motion.div>
 
-      {/* Oversized headline — anchored bottom, inside the frame */}
       <motion.div
         variants={prefersReducedMotion ? undefined : container}
         initial={prefersReducedMotion ? undefined : "hidden"}
@@ -189,9 +186,7 @@ export default function Hero() {
           <span className="block text-white/50">Built for generations.</span>
         </motion.h1>
 
-        {/* Museum-style plaque + CTA row */}
         <div className="mt-10 flex flex-col gap-8 sm:mt-14 lg:flex-row lg:items-end lg:justify-between">
-          {/* Plaque */}
           <motion.div
             variants={prefersReducedMotion ? undefined : rise}
             className="max-w-md border-l pl-5"
@@ -215,7 +210,6 @@ export default function Hero() {
             </p>
           </motion.div>
 
-          {/* Magnetic CTA */}
           <motion.div
             variants={prefersReducedMotion ? undefined : rise}
             onMouseMove={handleCtaMouseMove}
@@ -227,18 +221,18 @@ export default function Hero() {
               whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
             >
               <RippleButton
+                type="button"
+                onClick={ handleExploreWork }
                 rippleClassName="bg-black/10"
                 style={{ ["--tw-ring-color" as string]: ACCENT }}
                 className="group relative flex w-fit items-center gap-5 rounded-full bg-white py-3 pl-8 pr-3 text-xl font-semibold text-neutral-900 shadow-lg outline-none transition-shadow duration-300 hover:shadow-[0_0_0_1px_rgba(255,222,89,0.55),0_18px_44px_-10px_rgba(0,0,0,0.55)] focus-visible:ring-2"
               >
-                {/* Ambient glow — blooms behind the pill on hover */}
                 <span
                   aria-hidden="true"
                   className="pointer-events-none absolute -inset-4 -z-10 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-50"
                   style={{ backgroundColor: ACCENT }}
                 />
 
-                {/* Spinning conic ring — draws itself in on hover */}
                 {!prefersReducedMotion && (
                   <span
                     aria-hidden="true"
@@ -252,7 +246,6 @@ export default function Hero() {
                   />
                 )}
 
-                {/* Label — vertical swap reveal on hover */}
                 <span
                   style={{ fontFamily: FONT_SUBHEADING }}
                   className="relative block h-[1.3em] overflow-hidden"
@@ -269,7 +262,6 @@ export default function Hero() {
                   </span>
                 </span>
 
-                {/* Icon — inverts color and rotates into a "launch" arrow */}
                 <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-neutral-900 text-white transition-colors duration-300 ease-out group-hover:bg-[#ffde59] group-hover:text-neutral-900">
                   <svg
                     width="20"
@@ -292,7 +284,6 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Scroll Indicator — centered on the frame's bottom edge */}
       <div className="absolute bottom-8 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-3 sm:flex">
         <span
           style={{ fontFamily: FONT_SUBHEADING }}
