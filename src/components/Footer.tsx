@@ -208,7 +208,7 @@ export default function Footer() {
             <div className="mt-8 flex items-center gap-3">
               {[
                 { icon: <InstagramMark />, href: "https://www.instagram.com/i_con_interier_home_decor_/", label: "Instagram" },
-                { icon: <WhatsAppMark />, href: "https://wa.me/919800000000", label: "WhatsApp" },
+                { icon: <WhatsAppMark />, href: "https://wa.me/+919773836697", label: "WhatsApp" },
                 { icon: <GoogleMark />, href: "https://g.page/icon-interior-home-decor", label: "Google" },
               ].map((s) => (
                 <motion.a
