@@ -21,10 +21,6 @@ export const metadata: Metadata = {
   title: "Icon Interior | Crafted for Luxury, Built for Generations",
   description:
     "Discover premium, hand-finished furniture made to transform your home into a masterpiece.",
-  icons: {
-    icon: "./home-decor.icon",
-    shortcut: "./home-decor.icon",
-  },
 };
 
 export default function RootLayout({
